@@ -145,9 +145,13 @@ function decodeTorrentFile (torrent) {
   // announce and announce-list will be missing if metadata fetched via ut_metadata
   if (Array.isArray(torrent['announce-list']) && torrent['announce-list'].length > 0) {
     torrent['announce-list'].forEach(urls => {
-      urls.forEach(url => {
-        result.announce.push(url.toString())
-      })
+	    if(Array.isArray(urls)) {
+	      urls.forEach(url => {
+		      result.announce.push(url.toString())
+	      })
+	    } else {
+		    result.announce.push(urls.toString())
+	    }
     })
   } else if (torrent.announce) {
     result.announce.push(torrent.announce.toString())
