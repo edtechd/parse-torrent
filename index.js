@@ -147,6 +147,13 @@ function decodeTorrentFile (torrent) {
     torrent['announce-list'].forEach(urls => {
       urls.forEach(url => {
         result.announce.push(url.toString())
+	      if(Array.isArray(urls)) {
+	        urls.forEach(url => {
+		      result.announce.push(url.toString())
+	        })
+	      } else {
+		    result.announce.push(urls.toString())
+	      }
       })
     })
   } else if (torrent.announce) {
